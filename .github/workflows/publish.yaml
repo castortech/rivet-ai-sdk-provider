@@ -11,22 +11,22 @@ jobs:
       packages: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: "22.x"
+          node-version: "24.x"
           registry-url: "https://registry.npmjs.org"
           scope: "@alpic80"
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm build
       - name: Publish to npm
         run: |
           if [ "${{ github.event.release.prerelease }}" = "true" ]; then
-            pnpm publish --provenance --access public --no-git-checks --tag beta
+            NODE_AUTH_TOKEN="" pnpm publish --provenance --access public --no-git-checks --tag beta
           else
-            pnpm publish --provenance --access public --no-git-checks
+            NODE_AUTH_TOKEN="" pnpm publish --provenance --access public --no-git-checks
           fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
