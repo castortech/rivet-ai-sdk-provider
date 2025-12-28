@@ -14,6 +14,14 @@ const rivetRunParamsSchema = z.object({
   events: z.string().optional()
 })
 
+const graphInputSchema = z.record(
+	z.string(), // key type
+  z.object({
+    type: z.string(),
+    value: z.unknown(),
+  })
+).optional()
+
 const standardChatConfigSchema = z.object({
   temperature: z.number().optional(),
   top_p: z.number().optional(),
@@ -63,7 +71,8 @@ const rivetCustomChatConfigSchema = z.object({
 
 export const rivetLanguageModelOptions = z.object({
   runParams: rivetRunParamsSchema,
-  chatConfig: rivetCustomChatConfigSchema
+  chatConfig: rivetCustomChatConfigSchema,
+	rivetInputs: graphInputSchema
 })
 
 // Union of standard and custom options for outgoing config

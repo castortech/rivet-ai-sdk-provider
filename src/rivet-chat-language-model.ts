@@ -81,7 +81,8 @@ export class RivetChatLanguageModel implements LanguageModelV2 {
 
 		const emptyOptions: RivetLanguageModelOptions = {
 			runParams: {},
-			chatConfig: {}
+			chatConfig: {},
+			rivetInputs: {}
 		}
 
 		debugLog(`providerOptions:${printObject(providerOptions)}`)
@@ -104,6 +105,7 @@ export class RivetChatLanguageModel implements LanguageModelV2 {
 		// Ensure inner objects exist even if parseProviderOptions returns partials
 		options.runParams = options.runParams ?? {}
 		options.chatConfig = options.chatConfig ?? {}
+		options.rivetInputs = options.rivetInputs ?? {}
 
     const chatConfig: RivetChatConfigOptions = { ...options.chatConfig }
 
@@ -154,7 +156,8 @@ export class RivetChatLanguageModel implements LanguageModelV2 {
 					type: 'gpt-function[]',
 					value: rivetSchemas,
 				},
-				runParams: { ...options.runParams }
+				runParams: { ...options.runParams },
+    		...(options.rivetInputs ?? {})
       },
       warnings: [...warnings, ...toolWarnings],
     };
