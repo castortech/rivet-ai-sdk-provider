@@ -2,6 +2,25 @@ import { z } from 'zod/v4';
 
 export type RivetChatModelId = string;
 
+type JSONValue =
+  | null
+  | string
+  | number
+  | boolean
+  | { [key: string]: JSONValue }
+  | JSONValue[]
+
+const jsonValue: z.ZodType<JSONValue> = z.lazy(() =>
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    z.null(),
+    z.array(jsonValue),
+    z.record(z.string(), jsonValue)
+  ])
+)
+
 const rivetRunParamsSchema = z.object({
   openaiApiKey: z.string().optional(),
   openaiEndpoint: z.string().optional(),
@@ -18,7 +37,7 @@ const graphInputSchema = z.record(
 	z.string(), // key type
   z.object({
     type: z.string(),
-    value: z.unknown(),
+    value: jsonValue,
   })
 ).optional()
 

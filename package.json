@@ -1,6 +1,6 @@
 {
   "name": "@alpic80/rivet-ai-sdk-provider",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "license": "Apache-2.0",
   "pnpm": {
     "overrides": {
