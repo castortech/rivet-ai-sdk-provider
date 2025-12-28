@@ -14,7 +14,7 @@
     "clean": "rm -rf dist && rm -rf internal/dist",
     "dev": "tsup --watch",
     "lint": "biome lint",
-
+		"typecheck": "tsc --noEmit",
     "format": "biome format --write",
     "prepublish": "pnpm run build",
     "test": "pnpm test:node && pnpm test:edge",
