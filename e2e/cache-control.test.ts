@@ -1,6 +1,6 @@
 import { streamText } from 'ai';
 import { it, vi } from 'vitest';
-import { createOpenRouter } from '@/src';
+import { createRivet } from '@/src';
 
 vi.setConfig({
   testTimeout: 42_000,
@@ -34,15 +34,11 @@ it('should trigger cache read', async () => {
 });
 
 async function callLLM() {
-  const openrouter = createOpenRouter({
+  const rivet = createRivet({
     apiKey: process.env.OPENROUTER_API_KEY,
-    baseUrl: `${process.env.OPENROUTER_API_BASE}/api/v1`,
+    baseURL: `${process.env.OPENROUTER_API_BASE}/api/v1`,
   });
-  const model = openrouter('anthropic/claude-3.7-sonnet', {
-    usage: {
-      include: true,
-    },
-  });
+	const model = rivet.chat('rivet-small-latest');
   const response = streamText({
     model,
     messages: [

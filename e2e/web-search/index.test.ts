@@ -1,7 +1,7 @@
+import { createRivet } from '@/src/rivet-provider';
 import { streamText } from 'ai';
 import { writeFile } from 'fs/promises';
 import { describe, expect, it, vi } from 'vitest';
-import { createOpenRouter } from '@/src';
 
 vi.setConfig({
   testTimeout: 60_000,
@@ -9,23 +9,12 @@ vi.setConfig({
 
 describe('Web Search E2E Tests', () => {
   it('should handle web search citations in streaming response', async () => {
-    const openrouter = createOpenRouter({
+    const rivet = createRivet({
       apiKey: process.env.OPENROUTER_API_KEY,
-      baseUrl: `${process.env.OPENROUTER_API_BASE}/api/v1`,
+      baseURL: `${process.env.OPENROUTER_API_BASE}/api/v1`,
     });
 
-    const model = openrouter('anthropic/claude-3.5-sonnet', {
-      plugins: [
-        {
-          id: 'web',
-          max_results: 2,
-        },
-      ],
-      usage: {
-        include: true,
-      },
-    });
-
+    const model = rivet.chat('anthropic/claude-3.5-sonnet');
     const response = streamText({
       model,
       messages: [

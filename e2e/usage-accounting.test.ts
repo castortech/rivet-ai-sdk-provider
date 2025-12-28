@@ -1,21 +1,17 @@
+import { createRivet } from '@/src/rivet-provider';
 import { streamText } from 'ai';
 import { it, vi } from 'vitest';
-import { createOpenRouter } from '@/src';
 
 vi.setConfig({
   testTimeout: 60_000,
 });
 
 it('receive usage accounting', async () => {
-  const openrouter = createOpenRouter({
+  const rivet = createRivet({
     apiKey: process.env.OPENROUTER_API_KEY,
-    baseUrl: `${process.env.OPENROUTER_API_BASE}/api/v1`,
+    baseURL: `${process.env.OPENROUTER_API_BASE}/api/v1`,
   });
-  const model = openrouter('anthropic/claude-3.7-sonnet:thinking', {
-    usage: {
-      include: true,
-    },
-  });
+  const model = rivet.chat('anthropic/claude-3.7-sonnet:thinking');
   const response = streamText({
     model,
     messages: [

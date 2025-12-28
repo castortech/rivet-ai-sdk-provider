@@ -540,8 +540,8 @@ const rivetChatResponseHandler = (
   id: string,
   model: string
 ): ResponseHandler<RivetChatResponse> => async ({
-  url,
-  requestBodyValues,
+  url: _url,
+  requestBodyValues: _requestBodyValues,
   response,
 }) => {
   const raw = (await response.json()) as Record<string, any>

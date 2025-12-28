@@ -7,7 +7,7 @@ import {
   readSMSTool,
   sendSMSTool,
 } from '@/e2e/tools';
-import { createOpenRouter } from '@/src';
+import { createRivet } from '@/src/rivet-provider';
 
 vi.setConfig({
   testTimeout: 42_000,
@@ -20,16 +20,12 @@ const prompts = [
 
 describe('Vercel AI SDK tools call with reasoning', () => {
   it('should work with reasoning content', async () => {
-    const openrouter = createOpenRouter({
+    const rivet = createRivet({
       apiKey: process.env.OPENROUTER_API_KEY,
-      baseUrl: `${process.env.OPENROUTER_API_BASE}/api/v1`,
+      baseURL: `${process.env.OPENROUTER_API_BASE}/api/v1`,
     });
 
-    const model = openrouter('anthropic/claude-sonnet-4', {
-      usage: {
-        include: true,
-      },
-    });
+    const model = rivet.chat('anthropic/claude-sonnet-4');
     const messageHistory: ModelMessage[] = [];
     for (const prompt of prompts) {
       messageHistory.push({

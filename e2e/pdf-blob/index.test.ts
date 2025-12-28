@@ -15,12 +15,7 @@ test('sending pdf base64 blob', async () => {
     baseURL: `${process.env.RIVET_API_BASE}/api/v1`,
   });
 
-  const model = rivet('anthropic/claude-sonnet-4', {
-    usage: {
-      include: true,
-    },
-  });
-
+  const model = rivet.chat('anthropic/claude-sonnet-4');
   const pdfBlob = await fetch('https://bitcoin.org/bitcoin.pdf').then((res) =>
     res.arrayBuffer(),
   );
