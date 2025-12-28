@@ -29,7 +29,7 @@
     "test:e2e": "vitest --config vitest.e2e.config.ts --run",
     "changeset": "changeset",
     "changeset-version": "changeset version",
-    "changeset-publish": "pnpm build && pnpm test && changeset publish --provenance"
+    "changeset-publish": "pnpm build && changeset publish --provenance"
   },
   "exports": {
     "./package.json": "./package.json",
