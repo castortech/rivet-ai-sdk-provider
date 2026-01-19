@@ -46,6 +46,7 @@ export async function prepareTools({
 
       rivetTools.push({
         name: tool.name,
+				namespace: 'openapi',
         description: tool.description || '',
 				parameters: tool.inputSchema,
 				strict: false
