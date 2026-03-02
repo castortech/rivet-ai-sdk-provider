@@ -185,6 +185,8 @@ export class RivetChatLanguageModel implements LanguageModelV2 {
       fetch: this.config.fetch,
     });
 
+		debugLog(`generate response:${printObject(response)}`)
+
     const choice = response.choices[0];
 		if (!choice) {
 			throw new Error('No choices found')
@@ -222,6 +224,8 @@ export class RivetChatLanguageModel implements LanguageModelV2 {
         });
       }
     }
+
+		debugLog(`generate content:${printObject(content)}`)
 
     return {
       content,
