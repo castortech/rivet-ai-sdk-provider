@@ -52,6 +52,14 @@ export function convertToRivetChatMessages(
 										})
 									}
                 }
+								else if (part.mediaType === 'application/pdf') {
+                   return {
+                    	type: 'file',
+											filename: part.filename || 'file.pdf',
+								 			mediaType: 'application/pdf',
+                      data: part.data.toString(),
+                   }
+                }
 								// else if (part.mediaType === 'application/pdf') {
                 //   return {
                 //     type: 'document',
